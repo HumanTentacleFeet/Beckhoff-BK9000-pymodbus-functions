@@ -10,6 +10,7 @@
 
 try:
     from pymodbus.client.sync import ModbusTcpClient
+    import os
     from time import time, sleep
     
     PLC_IP_ADDRESS = '192.168.0.1'  #Your PLC might be connected to a different IP-address, change this if that is true
