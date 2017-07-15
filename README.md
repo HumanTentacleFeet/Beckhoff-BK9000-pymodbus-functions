@@ -10,7 +10,7 @@ You can use these two commands to read input from the KL1002 input-terminal or t
 ## Examples
 ### Basic commands
 #### digitalWrite()
-digitalWrite(0, True) turns the first LED on the first KL2612 output-terminal on, and digitalWrite(0, False) turns it off again.
+digitalWrite(0, True) turns the first LED of the first KL2612 output-terminal on, and digitalWrite(0, False) turns it off again.
 #### digitalRead()
 digitalRead(0): Reads the status of the first LED of the first KL1002 input-terminal, returns True if it's connected and returns False if it's not connected
 #### *convert_number_to_binary_io()*
