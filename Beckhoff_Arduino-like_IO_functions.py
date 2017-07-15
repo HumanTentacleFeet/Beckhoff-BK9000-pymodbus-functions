@@ -12,13 +12,16 @@ try:
     from pymodbus.client.sync import ModbusTcpClient
     import os
     from time import time, sleep
-    
+
     PLC_IP_ADDRESS = '192.168.0.1'  #Your PLC might be connected to a different IP-address, change this if that is true
     PLC_PORT = 502
 
     plc = ModbusTcpClient(PLC_IP_ADDRESS, PLC_PORT)
 
     def convert_number_to_binary_io(number):
+	if(number>680564733841876926926749214863536422911):
+		print('convert_number_to_binary_io: Error: Cannot calculate numbers greater than 680564733841876926926749214863536422911.')
+		exit(1)
         totalNumber = number
         binary_array = []
         io = []
