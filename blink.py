@@ -60,11 +60,11 @@ try:
             delayTime=time()  # Save the current timestamp.
             while(time()-delayTime<=1):  # While the second is not over,
                 digitalWrite(0, True)    # keep the first LED turned on (True).
-            digitalWrite(0, False)  # Turn the LED off after a second has been passed.
+            digitalWrite(0, False)  # Turn the LED off after a second has passed.
             delayTime=time()  # Save the current timestamp
             while(time()-delayTime<=1):  # While the other second is not over,
                 digitalWrite(0, False)   # keep the first LED turned off (False).
-            digitalWrite(0, True)   # Turn the LED on after another second has been passed.
+            digitalWrite(0, True)   # Turn the LED on after another second has passed.
     blink()  # Execute the blink() function.
     ####  <End of example code>  ####
 
