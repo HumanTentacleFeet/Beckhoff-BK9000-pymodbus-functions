@@ -1,3 +1,5 @@
+#! /usr/bin/env python2
+
 #############################################################
 #                                                           #
 #  Two Arduino-like functions for the Beckhoff BK9000 PLC   #

@@ -1,3 +1,5 @@
+#! /usr/bin/env python2
+
 #############################################################
 #                                                           #
 #  Two Arduino-like functions for the Beckhoff BK9000 PLC   #
@@ -13,7 +15,7 @@ try:
     import os
     from time import time, sleep
 
-    PLC_IP_ADDRESS = '192.168.0.1'  #Your PLC might be connected to a different IP-address, change this if that is true
+    PLC_IP_ADDRESS = '192.168.2.100'  #Your PLC might be connected to a different IP-address, change this if that is true
     PLC_PORT = 502
 
     plc = ModbusTcpClient(PLC_IP_ADDRESS, PLC_PORT)
