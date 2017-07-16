@@ -1,4 +1,4 @@
-# Arduino-inspired functions to program Beckhoff's BK9000 PLC (tested on Ubuntu/Linux Mint)
+# Arduino-inspired functions to program Beckhoff's BK9000 PLC
 
 ## Short description
 A script containing a few functions to make it easier to program the Beckhoff BK9000 and it's KL2612 and KL1002 terminals. The code uses python 2.7 and the package "pymodbus" to speak to the BK9000.
