@@ -1,4 +1,4 @@
-# Arduino-inspired functions to program Beckhoff's BK9000 PLC
+# Arduino-inspired functions to program Beckhoff's BK9000 PLC (tested on Ubuntu/Linux Mint)
 
 ## Short description
 A script containing a few functions to make it easier to program the Beckhoff BK9000 and it's KL2612 and KL1002 terminals. The code uses python 2.7 and the package "pymodbus" to speak to the BK9000.
@@ -12,8 +12,9 @@ You can use these two commands to read input from the KL1002 input-terminal or t
 #### digitalWrite()
 digitalWrite(0, True) turns the first LED of the first KL2612 output-terminal on, and digitalWrite(0, False) turns it off again.
 #### digitalRead()
-digitalRead(0): Reads the status of the first LED of the first KL1002 input-terminal, returns True if it's connected and returns False if it's not connected
+digitalRead(0): Reads the status of the first LED of the first KL1002 input-terminal, returns True if it's connected and returns False if it's not connected.
+For debug purposes, digitalRead(0, print_io=True) (where 0 is an example-number) can be run to view the complete list of input connections.
 #### *convert_number_to_binary_io()*
 *The script also contains a third function: convert_number_to_binary_io(). This function is used by digitalRead() to convert the BK9000's response into an array which digitalRead() can use to see which inputs are connected or not. You do not need to call this function manually.*
 ### Arduino's blink for KL2612-terminals
-The file blink.py contains code that makes the first LED of the first KL2612 output-terminal blink (turn on and off every second). In the Arduino IDE, there is example-code called "Blink without delay". This example code has been inspired by "Blink without delay"
+The file blink.py contains code that makes the first LED of the first KL2612 output-terminal blink (turn on and off every second). In the Arduino IDE, there is example-code called "Blink without delay". This example code has been inspired by "Blink without delay".
