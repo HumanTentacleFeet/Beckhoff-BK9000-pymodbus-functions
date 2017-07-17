@@ -23,13 +23,13 @@ try:
     # Tell python how to connect to the client.
     client = ModbusTcpClient(CLIENT_IP_ADDRESS, CLIENT_PORT)
 
-    def convert_number_to_binary_input(number):  # This functinputn performs some calculatinputns for digitalRead(). When the BK9000's input registers are read, the BK9000 gives back a number. That number must be converted.
-        if(number>65535):  # If someone tries to manually call this functinputn with a number that is too big to calculate, stop the script.
+    def convert_number_to_binary_input(number):  # This function performs some calculatinputns for digitalRead(). When the BK9000's input registers are read, the BK9000 gives back a number. That number must be converted.
+        if(number>65535):  # If someone tries to manually call this function with a number that is too big to calculate, stop the script.
             print('Error: convert_number_to_binary_input() can only calculate numbers up to 65535.\nExiting...')
             exit(1)
         totalNumber = number  # I don't want to touch number here, so let's put that number-variable inside a 'private' variable.
         binary_array = []  # This array will be filled with 16 numbers that are 2^1, 2^2, etc.
-        input = []  # This array is going to contain which inputs are connected and which inputs are disconnected. (This is only for one register, so this functinputn will be called eight times per digitalRead() call.)
+        input = []  # This array is going to contain which inputs are connected and which inputs are disconnected. (This is only for one register, so this function will be called eight times per digitalRead() call.)
         for i in range(0, 16):
             binary_array.append(2**i)  # Fill this array with binary numbers.
         binary_array.reverse()  # The array must be reversed before it can be used properly.
@@ -45,7 +45,7 @@ try:
         input.reverse()  # The array is now in reverse, so reverse it before returning it.
         return input
 
-    def digitalRead(input_number, print_input=False):  # This functinputn checks if an input is connected or not. To see a list of all the Input readings, run digitalRead(number_you_wish_to_read, print_input=True) instead of digitalRead(number_you_wish_to_read).
+    def digitalRead(input_number, print_input=False):  # This function checks if an input is connected or not. To see a list of all the input readings, run digitalRead(number_you_wish_to_read, print_input=True) instead of digitalRead(number_you_wish_to_read).
         input_master_array = []  # This array is going to contain all the input-readings (which inputs are connected/disconnected).
         # Read all the registers and let convert_number_to_binary_input() convert them into arrays
         register_0 = convert_number_to_binary_input(client.read_input_registers(0).registers[0])
