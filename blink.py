@@ -10,6 +10,7 @@
 #                                                           #
 #############################################################
 
+
 try:
     # Import pymodbus, os and some items from time
     from pymodbus.client.sync import ModbusTcpClient
@@ -45,18 +46,58 @@ try:
         input.reverse()  # The array is now in reverse, so reverse it before returning it.
         return input
 
-    def digitalRead(input_number, print_input=False):  # This function checks if an input is connected or not. To see a list of all the Input readings, run digitalRead(number_you_wish_to_read, print_input=True) instead of digitalRead(number_you_wish_to_read).
+    def digitalRead(input_number, print_input=False):  # This function checks if an input is connected or not. To see a list of all the input readings, run digitalRead(number_you_wish_to_read, print_input=True) instead of digitalRead(number_you_wish_to_read).
         input_master_array = []  # This array is going to contain all the input-readings (which inputs are connected/disconnected).
-        # Read all the registers and let convert_number_to_binary_input() convert them into arrays
-        register_0 = convert_number_to_binary_input(client.read_input_registers(0).registers[0])
-        register_1 = convert_number_to_binary_input(client.read_input_registers(1).registers[0])
-        register_2 = convert_number_to_binary_input(client.read_input_registers(2).registers[0])
-        register_3 = convert_number_to_binary_input(client.read_input_registers(3).registers[0])
-        register_4 = convert_number_to_binary_input(client.read_input_registers(4).registers[0])
-        register_5 = convert_number_to_binary_input(client.read_input_registers(5).registers[0])
-        register_6 = convert_number_to_binary_input(client.read_input_registers(6).registers[0])
-        register_7 = convert_number_to_binary_input(client.read_input_registers(7).registers[0])
-        # Add all the arrays to one big array of 128 items. The master array is going to contain all of the input readings.
+        # Read all the relevant registers and put them into one big array (if the debug-option print_input is enabled, all the registers will be read, causing digitalRead() to read about 8 times slower)
+        if(input_number<=15 or print_input==True):
+            register_0 = convert_number_to_binary_input(client.read_input_registers(0).registers[0])  #  Read the register if it's relevant or if print_input is enabled
+        else:
+            register_0 = []
+            for dummy_reading in range (0,16):
+                register_0.append(0)                                                                  # If it's not relevant, create an empty array (which is much faster)
+        if((input_number>=16 and input_number<=31) or print_input==True):
+            register_1 = convert_number_to_binary_input(client.read_input_registers(1).registers[0])  # Repeat this process for all 8 registers
+        else:
+            register_1 = []
+            for dummy_reading in range (0,16):
+                register_1.append(0)
+        if((input_number>=32 and input_number<=47) or print_input==True):
+            register_2 = convert_number_to_binary_input(client.read_input_registers(2).registers[0])
+        else:
+            register_2 = []
+            for dummy_reading in range (0,16):
+                register_2.append(0)
+        if((input_number>=48 and input_number<=63) or print_input==True):
+            register_3 = convert_number_to_binary_input(client.read_input_registers(3).registers[0])
+        else:
+            register_3 = []
+            for dummy_reading in range (0,16):
+                register_3.append(0)
+        if((input_number>=64 and input_number<=79) or print_input==True):
+            register_4 = convert_number_to_binary_input(client.read_input_registers(4).registers[0])
+        else:
+            register_4 = []
+            for dummy_reading in range (0,16):
+                register_4.append(0)
+        if((input_number>=80 and input_number<=95) or print_input==True):
+            register_5 = convert_number_to_binary_input(client.read_input_registers(5).registers[0])
+        else:
+            register_5 = []
+            for dummy_reading in range (0,16):
+                register_5.append(0)
+        if((input_number>=96 and input_number<=111) or print_input==True):
+            register_6 = convert_number_to_binary_input(client.read_input_registers(6).registers[0])
+        else:
+            register_6 = []
+            for dummy_reading in range (0,16):
+                register_6.append(0)
+        if((input_number>=96 and input_number<=111) or print_input==True):
+            register_7 = convert_number_to_binary_input(client.read_input_registers(7).registers[0])
+        else:
+            register_7 = []
+            for dummy_reading in range (0,16):
+                register_7.append(0)
+        # Add all the arrays to one big array of 128 items. The master array is going to contain some/all of the input readings (depends on debug-option print_input).
         for register_item in range(0,16):
             input_master_array.append(register_0[register_item])
         for register_item in range(0,16):
@@ -73,10 +114,10 @@ try:
             input_master_array.append(register_6[register_item])
         for register_item in range(0,16):
             input_master_array.append(register_7[register_item])
-        # This is the part that prints the complete input-table.
+        # This is the part that prints the complete input-table if print_input is enabled.
         if(print_input==True):
             print(input_master_array)
-        # This is the part that checks if the input is connected or not and gives back True or False.
+        # This is the part that checks if the requested input is connected or not and gives back True or False.
         if(input_master_array[input_number] == True):
             return True
         elif(input_master_array[input_number] == False):
@@ -84,11 +125,11 @@ try:
 
     def digitalWrite(output_number, status):
         if(status != True and status != False):
-            # Humans make mistakes. Make sure not to write invalid statusses to the BK9000.
+            # Humans make mistakes. Make sure not to write an invalid status to the BK9000.
             print('digitalWrite: Error: Invalid status: A status can only be True or False.\nExiting...')
             exit(1)
         else:
-            # This looks a lot like digitalWrite already...
+            # This looks a lot like digitalWrite(pin_number, status) from the Arduino IDE...
             client.write_coils(output_number, status)
 
     ####    <Beginning of example code>    ####
