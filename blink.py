@@ -50,53 +50,61 @@ try:
         input_master_array = []  # This array is going to contain all the input-readings (which inputs are connected/disconnected).
         # Read all the relevant registers and put them into one big array (if the debug-option print_input is enabled, all the registers will be read, causing digitalRead() to read about 8 times slower)
         if(input_number<=15 or print_input==True):
-            register_0 = convert_number_to_binary_input(client.read_input_registers(0).registers[0])  #  Read the register if it's relevant or if print_input is enabled
+            register_0 = convert_number_to_binary_input(client.read_input_registers(0).registers[0])  # Read the register if it's relevant or if print_input is enabled
         else:
-            register_0 = []
-            for dummy_reading in range (0,16):
-                register_0.append(0)                                                                  # If it's not relevant, create an empty array (which is much faster)
+            if not 'register_0' in locals():                                                          # If it's not relevant and an array doesn't exist yet
+                register_0 = []
+                for dummy_reading in range (0,16):
+                    register_0.append(0)                                                              # create an empty array (which is much faster than reading input from the BK9000)
         if((input_number>=16 and input_number<=31) or print_input==True):
-            register_1 = convert_number_to_binary_input(client.read_input_registers(1).registers[0])  # Repeat this process for all 8 registers
+            register_1 = convert_number_to_binary_input(client.read_input_registers(1).registers[0])  # Repeat this process for all the registers
         else:
-            register_1 = []
-            for dummy_reading in range (0,16):
-                register_1.append(0)
+            if not 'register_1' in locals():
+                register_1 = []
+                for dummy_reading in range (0,16):
+                    register_1.append(0)
         if((input_number>=32 and input_number<=47) or print_input==True):
             register_2 = convert_number_to_binary_input(client.read_input_registers(2).registers[0])
         else:
-            register_2 = []
-            for dummy_reading in range (0,16):
-                register_2.append(0)
+            if not 'register_2' in locals():
+                register_2 = []
+                for dummy_reading in range (0,16):
+                    register_2.append(0)
         if((input_number>=48 and input_number<=63) or print_input==True):
             register_3 = convert_number_to_binary_input(client.read_input_registers(3).registers[0])
         else:
-            register_3 = []
-            for dummy_reading in range (0,16):
-                register_3.append(0)
+            if not 'register_3' in locals():
+                register_3 = []
+                for dummy_reading in range (0,16):
+                    register_3.append(0)
         if((input_number>=64 and input_number<=79) or print_input==True):
             register_4 = convert_number_to_binary_input(client.read_input_registers(4).registers[0])
         else:
-            register_4 = []
-            for dummy_reading in range (0,16):
-                register_4.append(0)
+            if not 'register_4' in locals():
+                register_4 = []
+                for dummy_reading in range (0,16):
+                    register_4.append(0)
         if((input_number>=80 and input_number<=95) or print_input==True):
             register_5 = convert_number_to_binary_input(client.read_input_registers(5).registers[0])
         else:
-            register_5 = []
-            for dummy_reading in range (0,16):
-                register_5.append(0)
+            if not 'register_5' in locals():
+                register_5 = []
+                for dummy_reading in range (0,16):
+                    register_5.append(0)
         if((input_number>=96 and input_number<=111) or print_input==True):
             register_6 = convert_number_to_binary_input(client.read_input_registers(6).registers[0])
         else:
-            register_6 = []
-            for dummy_reading in range (0,16):
-                register_6.append(0)
+            if not 'register_6' in locals():
+                register_6 = []
+                for dummy_reading in range (0,16):
+                    register_6.append(0)
         if((input_number>=96 and input_number<=111) or print_input==True):
             register_7 = convert_number_to_binary_input(client.read_input_registers(7).registers[0])
         else:
-            register_7 = []
-            for dummy_reading in range (0,16):
-                register_7.append(0)
+            if not 'register_7' in locals():
+                register_7 = []
+                for dummy_reading in range (0,16):
+                    register_7.append(0)
         # Add all the arrays to one big array of 128 items. The master array is going to contain some/all of the input readings (depends on debug-option print_input).
         for register_item in range(0,16):
             input_master_array.append(register_0[register_item])
@@ -115,8 +123,8 @@ try:
         for register_item in range(0,16):
             input_master_array.append(register_7[register_item])
         # This is the part that prints the complete input-table if print_input is enabled.
-        if(print_input==True):
-            print(input_master_array)
+        #if(print_input==True):
+            #print(input_master_array)
         # This is the part that checks if the requested input is connected or not and gives back True or False.
         if(input_master_array[input_number] == True):
             return True
