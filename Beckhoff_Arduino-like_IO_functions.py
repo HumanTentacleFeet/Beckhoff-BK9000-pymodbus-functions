@@ -6,8 +6,8 @@
 #  and it's KL2612 and KL1002 I/O terminals.                #
 #  To use this script, you need pymodbus to be installed.   #
 #                                                           #
-#  Written by https://www.github.com/HumanTentacleFeet      #
-#                                                           #
+#  Written by Tom Niesse                                    #
+#  (https://www.github.com/TomNiesse)                       #
 #############################################################
 
 
